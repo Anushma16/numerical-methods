@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <math.h>
+
+double f(double x)
+{
+    return (x*x + 4*x - 9);
+}
+double g(double x)
+{
+    return sqrt(9 - 4*x);
+}
+
+int main()
+{
+    double x0, x1;
+    double tolerance = 0.00001;
+    int iteration = 0;
+    int max_iter = 100;
+
+    printf("Enter initial guess: ");
+    scanf("%lf", &x0);
+
+    do
+    {
+        x1 = g(x0);
+        iteration++;
+
+        if (iteration > max_iter)
+        {
+            printf("Solution does not converge.\n");
+            return 0;
+        }
+
+        x0 = x1;
+
+    } while (fabs(f(x1)) > tolerance);
+
+    printf("\nEstimated Root = %lf\n", x1);
+    printf("Functional Value at Root = %lf\n", f(x1));
+    printf("Number of Iterations = %d\n", iteration);
+
+    return 0;
+}
